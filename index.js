@@ -17,78 +17,43 @@ async function fetchNews(news) {
   }
 }
 
-// function displayNews(articles) {
-//   const newsContainer = document.getElementById("news_paragraph");
-//   newsContainer.innerHTML = "";
-
-//   articles.forEach((article) => {
-//     const newsCard = document.createElement("div");
-//     newsCard.classList.add("news-card");
-
-//     const publishedDate = new Date(article.publishedAt);
-//     const customDate = `${publishedDate.getFullYear()}-${
-//       publishedDate.getMonth() + 1
-//     }-${publishedDate.getDate()}`;
-
-//     newsCard.innerHTML = `
-//             <h2>${article.title}</h2>
-//             ${
-//               article.urlToImage
-//                 ? `<img src="${article.urlToImage}" alt="News Image">`
-//                 : ""
-//             }
-//             <p>${article.description}</p>
-//             <h3>${article.author}</h3>
-//             <h3>${article.source.name}</h3>
-//             <div class = "published">
-//             <p>Published on :</p>
-//             <h4> ${customDate}</h4>
-//             </div>
-//             <pre onclick="window.open('${
-//               article.url
-//             }', '_blank')">Read More -->></pre>
-//         `;
-//     newsContainer.appendChild(newsCard);
-//   });
-// }
-
-
 
 function displayNews(articles) {
   const newsContainer = document.getElementById("news_paragraph");
   newsContainer.innerHTML = "";
 
-  if (articles && Array.isArray(articles)) {
-    articles.forEach((article) => {
-      const newsCard = document.createElement("div");
-      newsCard.classList.add("news-card");
+  const newsCards = articles.map((article) => {
+    const newsCard = document.createElement("div");
+    newsCard.classList.add("news-card");
 
-      const publishedDate = new Date(article.publishedAt);
-      const customDate = `${publishedDate.getFullYear()}-${
-        publishedDate.getMonth() + 1
-      }-${publishedDate.getDate()}`;
+    const publishedDate = new Date(article.publishedAt);
+    const customDate = `${publishedDate.getFullYear()}-${
+      publishedDate.getMonth() + 1
+    }-${publishedDate.getDate()}`;
 
-      newsCard.innerHTML = `
-        <h2>${article.title}</h2>
-        ${
-          article.urlToImage
-            ? `<img src="${article.urlToImage}" alt="News Image">`
-            : ""
-        }
-        <p>${article.description}</p>
-        <h3>${article.author}</h3>
-        <h3>${article.source.name}</h3>
-        <div class="published">
-          <p>Published on :</p>
-          <h4> ${customDate}</h4>
-        </div>
-        <pre onclick="window.open('${article.url}', '_blank')">Read More -->></pre>
-      `;
-      newsContainer.appendChild(newsCard);
-    });
-  } else {
-    console.error("Articles data is undefined or not an array");
-  }
+    newsCard.innerHTML = `
+      <h2>${article.title}</h2>
+      ${
+        article.urlToImage
+          ? `<img src="${article.urlToImage}" alt="News Image">`
+          : ""
+      }
+      <p>${article.description}</p>
+      <h3>${article.author}</h3>
+      <h3>${article.source.name}</h3>
+      <div class="published">
+        <p>Published on :</p>
+        <h4> ${customDate}</h4>
+      </div>
+      <pre onclick="window.open('${article.url}', '_blank')">Read More -->></pre>
+    `;
+
+    return newsCard;
+  });
+
+  newsCards.forEach((newsCard) => {
+    newsContainer.appendChild(newsCard);
+  });
 }
 
 
